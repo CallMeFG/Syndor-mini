@@ -1,0 +1,99 @@
+:root {
+  --bg: #ffffff;
+  --side: #f4f4f6;
+  --ink: #1d1d22;
+  --muted: #6b6b76;
+  --line: #e6e6ea;
+  --accent: #d97757;
+  --hover: #eaeaee;
+  --bubble: #f7f7f9;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17171b; --side: #1f1f24; --ink: #ececf1; --muted: #9a9aa6;
+    --line: #2c2c33; --hover: #2a2a31; --bubble: #222228;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); font-size: 14px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+.app { display: grid; grid-template-columns: 240px 1fr; height: 100%; }
+
+/* Sidebar */
+.sidebar { background: var(--side); border-right: 1px solid var(--line); padding: 16px 10px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
+.brand { font-weight: 700; letter-spacing: .08em; font-size: 15px; padding: 4px 8px 14px; }
+.brand span { font-weight: 500; letter-spacing: 0; color: var(--muted); font-size: 12px; }
+.section { font-size: 12px; color: var(--muted); padding: 14px 8px 6px; }
+.item { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: none; border: 0; border-radius: 6px; padding: 7px 8px; }
+.item:hover { background: var(--hover); }
+.item.active { background: var(--bg); box-shadow: 0 1px 2px rgba(0,0,0,.06); font-weight: 600; }
+.item.static { cursor: default; }
+.item.static:hover { background: none; }
+.hash { color: var(--muted); width: 22px; text-align: center; }
+.grow { flex: 1; }
+.role { font-size: 11px; color: var(--muted); font-weight: 400; }
+.you { font-size: 11px; color: var(--muted); margin-left: auto; }
+.status { margin-top: auto; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); padding: 12px 8px 0; border-top: 1px solid var(--line); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #d4a017; }
+.dot.on { background: #22a06b; }
+.provider { margin-left: auto; background: var(--hover); padding: 2px 6px; border-radius: 4px; }
+
+.avatar { width: 22px; height: 22px; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-size: 11px; font-weight: 600; flex: none; }
+.avatar.square { border-radius: 5px; }
+
+/* Main */
+.main { display: flex; flex-direction: column; min-width: 0; height: 100%; }
+.topbar { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+.topbar h1 { font-size: 16px; margin: 0; }
+.members { color: var(--muted); font-size: 12px; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.clear { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 12px; color: var(--muted); }
+.clear:hover { background: var(--hover); }
+.menu { display: none; background: none; border: 0; font-size: 18px; padding: 0 4px; }
+
+.messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+.empty { margin: auto; text-align: center; color: var(--muted); }
+.hint { font-size: 13px; background: var(--bubble); padding: 8px 12px; border-radius: 8px; display: inline-block; }
+.msg { display: flex; gap: 12px; }
+.msg .avatar { width: 34px; height: 34px; font-size: 14px; }
+.msg .avatar.square { border-radius: 8px; }
+.body { min-width: 0; }
+.meta { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; }
+.meta time { font-size: 11px; color: var(--muted); }
+.badge { font-size: 10px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
+.text { line-height: 1.55; white-space: pre-wrap; word-break: break-word; font-size: 15px; }
+.mention { color: var(--accent); font-weight: 600; }
+.inline-code { font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: .9em; background: var(--bubble); padding: 1px 5px; border-radius: 4px; }
+.system { align-self: center; font-size: 12px; color: #c0392b; background: rgba(192,57,43,.08); padding: 6px 12px; border-radius: 6px; max-width: 90%; }
+
+.dots { display: flex; gap: 4px; padding: 8px 0; }
+.dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: blink 1.2s infinite; }
+.dots i:nth-child(2) { animation-delay: .2s; }
+.dots i:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 0%, 80%, 100% { opacity: .25 } 40% { opacity: 1 } }
+
+/* Composer */
+.composer { position: relative; display: flex; gap: 8px; padding: 14px 20px 18px; border-top: 1px solid var(--line); }
+.composer textarea { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font: inherit; font-size: 14px; background: var(--bg); color: var(--ink); max-height: 140px; }
+.composer textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.composer > button { background: var(--ink); color: var(--bg); border: 0; border-radius: 8px; padding: 0 16px; font-weight: 600; }
+.composer > button:disabled { opacity: .35; cursor: default; }
+.suggest { position: absolute; bottom: calc(100% - 6px); left: 20px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.12); padding: 4px; min-width: 220px; }
+.suggest button { display: flex; align-items: center; gap: 8px; width: 100%; background: none; border: 0; padding: 7px 8px; border-radius: 6px; text-align: left; }
+.suggest button:hover, .suggest button:first-child { background: var(--hover); }
+.suggest .role { margin-left: auto; }
+
+/* Layar sempit (HP) */
+@media (max-width: 720px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: fixed; inset: 0 auto 0 0; width: 260px; z-index: 20; transform: translateX(-100%); transition: transform .2s; }
+  .sidebar.open { transform: none; }
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 10; }
+  .menu { display: block; }
+  .members { display: none; }
+  .clear { margin-left: auto; }
+  .messages, .composer, .topbar { padding-left: 16px; padding-right: 16px; }
+}
